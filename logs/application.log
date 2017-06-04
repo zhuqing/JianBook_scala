@@ -1,0 +1,16 @@
+2017-06-04 19:40:43,712 [INFO] from application in ForkJoinPool-1-worker-3 - ApplicationTimer demo: Starting application at 2017-06-04T11:40:43.622Z.
+2017-06-04 19:40:44,079 [INFO] from play.api.Play in ForkJoinPool-1-worker-3 - Application started (Dev)
+2017-06-04 19:42:18,890 [INFO] from application in application-akka.actor.default-dispatcher-2 - ApplicationTimer demo: Stopping application at 2017-06-04T11:42:18.890Z after 95s.
+2017-06-04 19:42:24,121 [INFO] from application in application-akka.actor.default-dispatcher-2 - ApplicationTimer demo: Starting application at 2017-06-04T11:42:24.119Z.
+2017-06-04 19:42:24,269 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-2 - Application started (Dev)
+2017-06-04 19:42:24,296 [INFO] from application in application-akka.actor.default-dispatcher-4 - Resolving database...
+2017-06-04 19:42:24,574 [INFO] from application in application-akka.actor.default-dispatcher-4 - ReactiveMongoApi successfully configured with DB 'mydb'! Servers:
+		[localhost:27017]
+2017-06-04 19:53:54,962 [INFO] from application in ForkJoinPool-5-worker-5 - ReactiveMongoApi stopping...
+2017-06-04 19:53:55,077 [INFO] from application in ForkJoinPool-5-worker-3 - ReactiveMongoApi connections stopped. [Success(Closed)]
+2017-06-04 19:53:55,117 [INFO] from application in ForkJoinPool-5-worker-5 - ApplicationTimer demo: Stopping application at 2017-06-04T11:53:55.116Z after 691s.
+2017-06-04 19:54:00,406 [INFO] from application in application-akka.actor.default-dispatcher-3 - ApplicationTimer demo: Starting application at 2017-06-04T11:54:00.401Z.
+2017-06-04 19:54:00,587 [INFO] from play.api.Play in application-akka.actor.default-dispatcher-3 - Application started (Dev)
+2017-06-04 19:54:00,620 [INFO] from application in application-akka.actor.default-dispatcher-6 - Resolving database...
+2017-06-04 19:54:00,636 [INFO] from application in application-akka.actor.default-dispatcher-6 - ReactiveMongoApi successfully configured with DB 'mydb'! Servers:
+		[localhost:27017]
