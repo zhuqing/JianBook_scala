@@ -9,8 +9,11 @@ GET     /count                      controllers.CountController.count
 # An example controller showing how to write asynchronous code
 GET     /message                    controllers.AsyncController.message
 
-GET   /user/insert/:name/:password     controllers.UserController.insert(name:String,password:String)
-GET    /getUser                     controllers.UserController.getUser
+GET   /user/insert/:name/:password          controllers.UserController.insert(name:String,password:String)
+GET    /user/find/:id                       controllers.UserController.find(id:String)
+GET   /user/findAll/:page/:pageSize         controllers.UserController.findAll(page:Int,pageSize:Int)
+GET     /user/update/:id/:email             controllers.UserController.update(id:String,email:String)
+GET  /user/remove/:id                    controllers.UserController.remove(id:String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

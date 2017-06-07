@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/Users/zhuleqi/GitHub/JianBook/conf/routes
-// @DATE:Sun Jun 04 19:42:13 CST 2017
+// @SOURCE:/Users/zhuleqi/GitHub/JianBook_scala/conf/routes
+// @DATE:Wed Jun 07 22:12:01 CST 2017
 
 package router
 
@@ -23,7 +23,7 @@ class Routes(
   AsyncController_2: controllers.AsyncController,
   // @LINE:12
   UserController_3: controllers.UserController,
-  // @LINE:16
+  // @LINE:19
   Assets_4: controllers.Assets,
   val prefix: String
 ) extends GeneratedRouter {
@@ -38,7 +38,7 @@ class Routes(
     AsyncController_2: controllers.AsyncController,
     // @LINE:12
     UserController_3: controllers.UserController,
-    // @LINE:16
+    // @LINE:19
     Assets_4: controllers.Assets
   ) = this(errorHandler, HomeController_1, CountController_0, AsyncController_2, UserController_3, Assets_4, "/")
 
@@ -58,7 +58,10 @@ class Routes(
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """count""", """controllers.CountController.count"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """message""", """controllers.AsyncController.message"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """user/insert/""" + "$" + """name<[^/]+>/""" + "$" + """password<[^/]+>""", """controllers.UserController.insert(name:String, password:String)"""),
-    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """getUser""", """controllers.UserController.getUser"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """user/find/""" + "$" + """id<[^/]+>""", """controllers.UserController.find(id:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """user/findAll/""" + "$" + """page<[^/]+>/""" + "$" + """pageSize<[^/]+>""", """controllers.UserController.findAll(page:Int, pageSize:Int)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """user/update/""" + "$" + """id<[^/]+>/""" + "$" + """email<[^/]+>""", """controllers.UserController.update(id:String, email:String)"""),
+    ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """user/remove/""" + "$" + """id<[^/]+>""", """controllers.UserController.remove(id:String)"""),
     ("""GET""", this.prefix + (if(this.prefix.endsWith("/")) "" else "/") + """assets/""" + "$" + """file<.+>""", """controllers.Assets.versioned(path:String = "/public", file:Asset)"""),
     Nil
   ).foldLeft(List.empty[(String,String,String)]) { (s,e) => e.asInstanceOf[Any] match {
@@ -136,27 +139,78 @@ class Routes(
   )
 
   // @LINE:13
-  private[this] lazy val controllers_UserController_getUser4_route = Route("GET",
-    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("getUser")))
+  private[this] lazy val controllers_UserController_find4_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("user/find/"), DynamicPart("id", """[^/]+""",true)))
   )
-  private[this] lazy val controllers_UserController_getUser4_invoker = createInvoker(
-    UserController_3.getUser,
+  private[this] lazy val controllers_UserController_find4_invoker = createInvoker(
+    UserController_3.find(fakeValue[String]),
     HandlerDef(this.getClass.getClassLoader,
       "router",
       "controllers.UserController",
-      "getUser",
-      Nil,
+      "find",
+      Seq(classOf[String]),
       "GET",
       """""",
-      this.prefix + """getUser"""
+      this.prefix + """user/find/""" + "$" + """id<[^/]+>"""
+    )
+  )
+
+  // @LINE:14
+  private[this] lazy val controllers_UserController_findAll5_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("user/findAll/"), DynamicPart("page", """[^/]+""",true), StaticPart("/"), DynamicPart("pageSize", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_UserController_findAll5_invoker = createInvoker(
+    UserController_3.findAll(fakeValue[Int], fakeValue[Int]),
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.UserController",
+      "findAll",
+      Seq(classOf[Int], classOf[Int]),
+      "GET",
+      """""",
+      this.prefix + """user/findAll/""" + "$" + """page<[^/]+>/""" + "$" + """pageSize<[^/]+>"""
+    )
+  )
+
+  // @LINE:15
+  private[this] lazy val controllers_UserController_update6_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("user/update/"), DynamicPart("id", """[^/]+""",true), StaticPart("/"), DynamicPart("email", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_UserController_update6_invoker = createInvoker(
+    UserController_3.update(fakeValue[String], fakeValue[String]),
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.UserController",
+      "update",
+      Seq(classOf[String], classOf[String]),
+      "GET",
+      """""",
+      this.prefix + """user/update/""" + "$" + """id<[^/]+>/""" + "$" + """email<[^/]+>"""
     )
   )
 
   // @LINE:16
-  private[this] lazy val controllers_Assets_versioned5_route = Route("GET",
+  private[this] lazy val controllers_UserController_remove7_route = Route("GET",
+    PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("user/remove/"), DynamicPart("id", """[^/]+""",true)))
+  )
+  private[this] lazy val controllers_UserController_remove7_invoker = createInvoker(
+    UserController_3.remove(fakeValue[String]),
+    HandlerDef(this.getClass.getClassLoader,
+      "router",
+      "controllers.UserController",
+      "remove",
+      Seq(classOf[String]),
+      "GET",
+      """""",
+      this.prefix + """user/remove/""" + "$" + """id<[^/]+>"""
+    )
+  )
+
+  // @LINE:19
+  private[this] lazy val controllers_Assets_versioned8_route = Route("GET",
     PathPattern(List(StaticPart(this.prefix), StaticPart(this.defaultPrefix), StaticPart("assets/"), DynamicPart("file", """.+""",false)))
   )
-  private[this] lazy val controllers_Assets_versioned5_invoker = createInvoker(
+  private[this] lazy val controllers_Assets_versioned8_invoker = createInvoker(
     Assets_4.versioned(fakeValue[String], fakeValue[Asset]),
     HandlerDef(this.getClass.getClassLoader,
       "router",
@@ -197,15 +251,33 @@ class Routes(
       }
   
     // @LINE:13
-    case controllers_UserController_getUser4_route(params) =>
-      call { 
-        controllers_UserController_getUser4_invoker.call(UserController_3.getUser)
+    case controllers_UserController_find4_route(params) =>
+      call(params.fromPath[String]("id", None)) { (id) =>
+        controllers_UserController_find4_invoker.call(UserController_3.find(id))
+      }
+  
+    // @LINE:14
+    case controllers_UserController_findAll5_route(params) =>
+      call(params.fromPath[Int]("page", None), params.fromPath[Int]("pageSize", None)) { (page, pageSize) =>
+        controllers_UserController_findAll5_invoker.call(UserController_3.findAll(page, pageSize))
+      }
+  
+    // @LINE:15
+    case controllers_UserController_update6_route(params) =>
+      call(params.fromPath[String]("id", None), params.fromPath[String]("email", None)) { (id, email) =>
+        controllers_UserController_update6_invoker.call(UserController_3.update(id, email))
       }
   
     // @LINE:16
-    case controllers_Assets_versioned5_route(params) =>
+    case controllers_UserController_remove7_route(params) =>
+      call(params.fromPath[String]("id", None)) { (id) =>
+        controllers_UserController_remove7_invoker.call(UserController_3.remove(id))
+      }
+  
+    // @LINE:19
+    case controllers_Assets_versioned8_route(params) =>
       call(Param[String]("path", Right("/public")), params.fromPath[Asset]("file", None)) { (path, file) =>
-        controllers_Assets_versioned5_invoker.call(Assets_4.versioned(path, file))
+        controllers_Assets_versioned8_invoker.call(Assets_4.versioned(path, file))
       }
   }
 }

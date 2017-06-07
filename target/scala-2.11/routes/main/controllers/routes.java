@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/Users/zhuleqi/GitHub/JianBook/conf/routes
-// @DATE:Sun Jun 04 19:42:13 CST 2017
+// @SOURCE:/Users/zhuleqi/GitHub/JianBook_scala/conf/routes
+// @DATE:Wed Jun 07 22:12:01 CST 2017
 
 package controllers;
 

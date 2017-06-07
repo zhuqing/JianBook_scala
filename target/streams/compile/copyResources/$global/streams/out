@@ -1,4 +1,4 @@
 [debug] Copy resource mappings: 
-[debug] 	(/Users/zhuleqi/GitHub/JianBook/conf/application.conf,/Users/zhuleqi/GitHub/JianBook/target/scala-2.11/classes/application.conf)
-[debug] 	(/Users/zhuleqi/GitHub/JianBook/conf/logback.xml,/Users/zhuleqi/GitHub/JianBook/target/scala-2.11/classes/logback.xml)
-[debug] 	(/Users/zhuleqi/GitHub/JianBook/conf/routes,/Users/zhuleqi/GitHub/JianBook/target/scala-2.11/classes/routes)
+[debug] 	(/Users/zhuleqi/GitHub/JianBook_scala/conf/application.conf,/Users/zhuleqi/GitHub/JianBook_scala/target/scala-2.11/classes/application.conf)
+[debug] 	(/Users/zhuleqi/GitHub/JianBook_scala/conf/logback.xml,/Users/zhuleqi/GitHub/JianBook_scala/target/scala-2.11/classes/logback.xml)
+[debug] 	(/Users/zhuleqi/GitHub/JianBook_scala/conf/routes,/Users/zhuleqi/GitHub/JianBook_scala/target/scala-2.11/classes/routes)

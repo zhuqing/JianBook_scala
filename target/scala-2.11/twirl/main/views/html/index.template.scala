@@ -57,8 +57,8 @@ Seq[Any](format.raw/*5.19*/("""
 object index extends index_Scope0.index
               /*
                   -- GENERATED --
-                  DATE: Sun Jun 04 19:09:35 CST 2017
-                  SOURCE: /Users/zhuleqi/GitHub/JianBook/app/views/index.scala.html
+                  DATE: Wed Jun 07 18:36:34 CST 2017
+                  SOURCE: /Users/zhuleqi/GitHub/JianBook_scala/app/views/index.scala.html
                   HASH: f276c6de270303ef74b0e6c2f0e5916575e8cdd6
                   MATRIX: 616->95|728->112|757->308|785->310|817->333|857->335|890->464|922->470|976->503|1009->506
                   LINES: 23->5|28->5|30->11|31->12|31->12|31->12|33->17|34->18|34->18|36->20

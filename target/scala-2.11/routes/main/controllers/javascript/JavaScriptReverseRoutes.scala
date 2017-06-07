@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/Users/zhuleqi/GitHub/JianBook/conf/routes
-// @DATE:Sun Jun 04 19:42:13 CST 2017
+// @SOURCE:/Users/zhuleqi/GitHub/JianBook_scala/conf/routes
+// @DATE:Wed Jun 07 22:12:01 CST 2017
 
 import play.api.routing.JavaScriptReverseRoute
 import play.api.mvc.{ QueryStringBindable, PathBindable, Call, JavascriptLiteral }
@@ -14,7 +14,7 @@ import _root_.controllers.Assets.Asset
 package controllers.javascript {
   import ReverseRouteContext.empty
 
-  // @LINE:16
+  // @LINE:19
   class ReverseAssets(_prefix: => String) {
 
     def _defaultPrefix: String = {
@@ -22,7 +22,7 @@ package controllers.javascript {
     }
 
   
-    // @LINE:16
+    // @LINE:19
     def versioned: JavaScriptReverseRoute = JavaScriptReverseRoute(
       "controllers.Assets.versioned",
       """
@@ -62,12 +62,42 @@ package controllers.javascript {
     }
 
   
-    // @LINE:13
-    def getUser: JavaScriptReverseRoute = JavaScriptReverseRoute(
-      "controllers.UserController.getUser",
+    // @LINE:15
+    def update: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.UserController.update",
       """
-        function() {
-          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "getUser"})
+        function(id0,email1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "user/update/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("id", encodeURIComponent(id0)) + "/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("email", encodeURIComponent(email1))})
+        }
+      """
+    )
+  
+    // @LINE:16
+    def remove: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.UserController.remove",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "user/remove/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("id", encodeURIComponent(id0))})
+        }
+      """
+    )
+  
+    // @LINE:13
+    def find: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.UserController.find",
+      """
+        function(id0) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "user/find/" + (""" + implicitly[PathBindable[String]].javascriptUnbind + """)("id", encodeURIComponent(id0))})
+        }
+      """
+    )
+  
+    // @LINE:14
+    def findAll: JavaScriptReverseRoute = JavaScriptReverseRoute(
+      "controllers.UserController.findAll",
+      """
+        function(page0,pageSize1) {
+          return _wA({method:"GET", url:"""" + _prefix + { _defaultPrefix } + """" + "user/findAll/" + (""" + implicitly[PathBindable[Int]].javascriptUnbind + """)("page", page0) + "/" + (""" + implicitly[PathBindable[Int]].javascriptUnbind + """)("pageSize", pageSize1)})
         }
       """
     )

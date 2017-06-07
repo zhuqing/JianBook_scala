@@ -1,7 +1,7 @@
 
 // @GENERATOR:play-routes-compiler
-// @SOURCE:/Users/zhuleqi/GitHub/JianBook/conf/routes
-// @DATE:Sun Jun 04 19:42:13 CST 2017
+// @SOURCE:/Users/zhuleqi/GitHub/JianBook_scala/conf/routes
+// @DATE:Wed Jun 07 22:12:01 CST 2017
 
 import play.api.mvc.{ QueryStringBindable, PathBindable, Call, JavascriptLiteral }
 import play.core.routing.{ HandlerDef, ReverseRouteContext, queryString, dynamicString }
@@ -12,14 +12,14 @@ import _root_.controllers.Assets.Asset
 // @LINE:6
 package controllers {
 
-  // @LINE:16
+  // @LINE:19
   class ReverseAssets(_prefix: => String) {
     def _defaultPrefix: String = {
       if (_prefix.endsWith("/")) "" else "/"
     }
 
   
-    // @LINE:16
+    // @LINE:19
     def versioned(file:Asset): Call = {
       implicit val _rrc = new ReverseRouteContext(Map(("path", "/public")))
       Call("GET", _prefix + { _defaultPrefix } + "assets/" + implicitly[PathBindable[Asset]].unbind("file", file))
@@ -49,10 +49,28 @@ package controllers {
     }
 
   
-    // @LINE:13
-    def getUser(): Call = {
+    // @LINE:15
+    def update(id:String, email:String): Call = {
       import ReverseRouteContext.empty
-      Call("GET", _prefix + { _defaultPrefix } + "getUser")
+      Call("GET", _prefix + { _defaultPrefix } + "user/update/" + implicitly[PathBindable[String]].unbind("id", dynamicString(id)) + "/" + implicitly[PathBindable[String]].unbind("email", dynamicString(email)))
+    }
+  
+    // @LINE:16
+    def remove(id:String): Call = {
+      import ReverseRouteContext.empty
+      Call("GET", _prefix + { _defaultPrefix } + "user/remove/" + implicitly[PathBindable[String]].unbind("id", dynamicString(id)))
+    }
+  
+    // @LINE:13
+    def find(id:String): Call = {
+      import ReverseRouteContext.empty
+      Call("GET", _prefix + { _defaultPrefix } + "user/find/" + implicitly[PathBindable[String]].unbind("id", dynamicString(id)))
+    }
+  
+    // @LINE:14
+    def findAll(page:Int, pageSize:Int): Call = {
+      import ReverseRouteContext.empty
+      Call("GET", _prefix + { _defaultPrefix } + "user/findAll/" + implicitly[PathBindable[Int]].unbind("page", page) + "/" + implicitly[PathBindable[Int]].unbind("pageSize", pageSize))
     }
   
     // @LINE:12
