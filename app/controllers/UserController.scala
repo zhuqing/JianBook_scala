@@ -23,6 +23,10 @@ class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
   def userCollection = reactiveMongoApi.database.
     map(_.collection[JSONCollection]("user"))
 
+  def regist()=Action{
+    Ok(views.html.userRegist("用户注册"))
+  }
+
   def insert(name:String,passowrd:String)=Action.async{
 
     var user = User(UUID.randomUUID().toString,
