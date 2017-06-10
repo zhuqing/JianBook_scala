@@ -27,12 +27,19 @@ class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
     Ok(views.html.userRegist("用户注册"))
   }
 
-  def insert(name:String,passowrd:String)=Action.async{
+  /**
+    *
+    * @param name
+    * @param passowrd
+    * @param email
+    * @return
+    */
+  def insert(name:String,passowrd:String,email:String)=Action.async{
 
     var user = User(UUID.randomUUID().toString,
       name,
       passowrd,
-    "",
+      email,
       System.currentTimeMillis(),
       System.currentTimeMillis()
     )
@@ -72,5 +79,9 @@ class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
         }
         Ok(userStr)
       })
+  }
+
+  def login(name:String,password:String) = Action{
+    Ok("")
   }
 }
