@@ -23,6 +23,11 @@ class ArticalController  @Inject() (val reactiveMongoApi: ReactiveMongoApi) exte
 
   def collection = reactiveMongoApi.database.
     map(_.collection[JSONCollection]("artical"))
+
+  def showEditor()=Action{
+    Ok(views.html.artical())
+  }
+
   def insert(title:String,content:String)=Action.async{
     val userId = "123"
     val artical = Artical(
