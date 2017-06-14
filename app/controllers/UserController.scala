@@ -20,6 +20,10 @@ import reactivemongo.play.json.collection._
   */
 class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends Controller with MongoController with ReactiveMongoComponents {
 
+  /**
+    * 获取mongoDb的collection
+    * @return
+    */
   def userCollection = reactiveMongoApi.database.
     map(_.collection[JSONCollection]("user"))
 
@@ -28,7 +32,7 @@ class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
   }
 
   /**
-    *
+    *插入用户
     * @param name
     * @param passowrd
     * @param email
@@ -43,41 +47,59 @@ class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
       System.currentTimeMillis(),
       System.currentTimeMillis()
     )
-  userCollection.flatMap(_.insert(user)).map(wr =>Ok(user.toString))
+  userCollection.flatMap(_.insert(user)).map(wr =>Ok(Json.toJson(user).toString()))
 
 
   }
 
+  /**
+    * 更新User的Email
+    * @param id
+    * @param email
+    * @return
+    */
   def update(id:String,email:String) = Action.async{
     userCollection.flatMap(_.update(Json.obj("_id"->id),Json.obj("$set"->Json.obj("email"->email)))).map(ss=>{
       Ok("ok")
     })
   }
 
+  /**
+    *根据ID查找用户
+    * @param id
+    * @return
+    */
   def find(id:String)=Action.async{
    userCollection.flatMap(_.find(Json.obj("_id"->id)).cursor[User]().collect[List]()).map(users=>{
-      Ok(users.head.toString);
+      Ok(Json.toJson(users.head).toString());
    })
   }
 
+  /**
+    * 删除用户
+    * @param id
+    * @return
+    */
   def remove(id:String) =Action.async{
     userCollection.flatMap(_.remove(Json.obj("_id"->id))).map(findMS =>{
       Ok("delete ok")
     })
   }
 
+  /**
+    * 分页查找用户列表
+    * @param page
+    * @param pageSize
+    * @return
+    */
+
   def findAll(page:Int,pageSize:Int) = Action.async{
       val startIndex = pageSize*(page-1);
       val endIndex = pageSize*page
-
-
-
+    
       userCollection.flatMap(_.find(Json.obj()).options(QueryOpts(skipN =startIndex ,batchSizeN = pageSize)).cursor[User]().collect[List](pageSize)).map(users=>{
-        var userStr = ""
-        for (user <- users){
-          userStr+=user.toString
-        }
-        Ok(userStr)
+        //生成JsonList
+        Ok(Json.obj("values"->users.map(Json.toJson(_))))
       })
   }
 

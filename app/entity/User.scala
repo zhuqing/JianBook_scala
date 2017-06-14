@@ -2,6 +2,15 @@
 
 package entity
 
+/**
+  * 用户实体对象
+  * @param id
+  * @param name
+  * @param password
+  * @param email
+  * @param createDate
+  * @param modifyDate
+  */
 case class User(val id:String ,
                 val name: String,
                 val password:String,

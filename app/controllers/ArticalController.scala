@@ -43,4 +43,26 @@ class ArticalController  @Inject() (val reactiveMongoApi: ReactiveMongoApi) exte
       Ok(artical.toString)
     })
   }
+
+  /**
+    * 根据文章ID获取文章
+    * @param id  文章Id
+    * @return 返回根据ID找到的文章
+    */
+  def find(id:String)=Action.async{
+    collection.flatMap(_.find(Json.obj({"_id"->id})).cursor[Artical]().collect[List]()).map(arts=>Ok(Json.toJson(arts.head).toString()))
+  }
+
+  /**
+    * 文章列表分页获取文章
+    * @param page
+    * @param pageSize
+    * @return
+    */
+  def findAll(page:Int,pageSize:Int)=Action.async{
+    val startIndex = pageSize*(page-1);
+    val endIndex = pageSize*page
+    val queryOpts = QueryOpts(skipN = startIndex,batchSizeN = pageSize)
+    collection.flatMap(_.find(Json.obj()).options(queryOpts).cursor[Artical]().collect[List](pageSize)).map(_.mkString("<br/>")).map(Ok(_))
+  }
 }
