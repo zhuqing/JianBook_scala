@@ -15,6 +15,7 @@ import reactivemongo.api.QueryOpts
 import reactivemongo.bson.BSONDocument
 import reactivemongo.play.json._
 import reactivemongo.play.json.collection._
+import util.JSONUtil
 
 /**
   * Created by zhuleqi on 2017/6/10.
@@ -26,6 +27,10 @@ class ArticalController  @Inject() (val reactiveMongoApi: ReactiveMongoApi) exte
 
   def showEditor()=Action{
     Ok(views.html.artical())
+  }
+
+  def showArticals()=Action{
+    Ok(views.html.articals())
   }
 
   def insert(title:String,content:String)=Action.async{
@@ -40,7 +45,7 @@ class ArticalController  @Inject() (val reactiveMongoApi: ReactiveMongoApi) exte
     )
 
     collection.flatMap(_.insert(artical)).map(wr=>{
-      Ok(artical.toString)
+      Ok(JSONUtil.toSuccessJSON())
     })
   }
 
@@ -50,7 +55,7 @@ class ArticalController  @Inject() (val reactiveMongoApi: ReactiveMongoApi) exte
     * @return 返回根据ID找到的文章
     */
   def find(id:String)=Action.async{
-    collection.flatMap(_.find(Json.obj({"_id"->id})).cursor[Artical]().collect[List]()).map(arts=>Ok(Json.toJson(arts.head).toString()))
+    collection.flatMap(_.find(Json.obj({"_id"->id})).cursor[Artical]().collect[List]()).map(arts=>Ok(JSONUtil.toJSON(arts.head)))
   }
 
   /**
@@ -63,6 +68,10 @@ class ArticalController  @Inject() (val reactiveMongoApi: ReactiveMongoApi) exte
     val startIndex = pageSize*(page-1);
     val endIndex = pageSize*page
     val queryOpts = QueryOpts(skipN = startIndex,batchSizeN = pageSize)
-    collection.flatMap(_.find(Json.obj()).options(queryOpts).cursor[Artical]().collect[List](pageSize)).map(_.mkString("<br/>")).map(Ok(_))
+    collection.flatMap(_.find(Json.obj())
+          .options(queryOpts)
+          .cursor[Artical]()
+          .collect[List](pageSize))
+      .map(articals=>Ok(JSONUtil.toJSON(page,pageSize,articals)))
   }
 }

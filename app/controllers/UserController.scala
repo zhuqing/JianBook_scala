@@ -11,9 +11,9 @@ import play.api.libs.concurrent.Execution.Implicits.defaultContext
 import play.api.libs.json.Json
 import reactivemongo.api.QueryOpts
 import reactivemongo.bson.BSONDocument
-
- import reactivemongo.play.json._
+import reactivemongo.play.json._
 import reactivemongo.play.json.collection._
+import util.JSONUtil
 
 /**
   * Created by zhuleqi on 2017/3/22.
@@ -71,7 +71,7 @@ class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
     */
   def find(id:String)=Action.async{
    userCollection.flatMap(_.find(Json.obj("_id"->id)).cursor[User]().collect[List]()).map(users=>{
-      Ok(Json.toJson(users.head).toString());
+      Ok(JSONUtil.toJSON(users.head));
    })
   }
 
@@ -97,9 +97,10 @@ class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
       val startIndex = pageSize*(page-1);
       val endIndex = pageSize*page
     
-      userCollection.flatMap(_.find(Json.obj()).options(QueryOpts(skipN =startIndex ,batchSizeN = pageSize)).cursor[User]().collect[List](pageSize)).map(users=>{
+      userCollection.flatMap(_.find(Json.obj()).options(QueryOpts(skipN =startIndex ,batchSizeN = pageSize))
+        .cursor[User]().collect[List](pageSize)).map(users=>{
         //生成JsonList
-        Ok(Json.obj("values"->users.map(Json.toJson(_))))
+        Ok(JSONUtil.toJSON(page,pageSize,users))
       })
   }
 

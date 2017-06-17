@@ -1,0 +1,45 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="https://cdn.bootcss.com/angular.js/1.6.3/angular.min.js"></script>
+
+  </head>
+  <body  >
+
+   <table style="width: 100%"  ng-app="myApp" ng-controller="formCtrl">
+     <tr ng-repeat="artical in articals">
+       <td>{{artical.title}}</td>
+       <td>{{artical.content}}</td>
+     </tr>
+   </table>
+
+      <script>
+
+
+              var app = angular.module('myApp', []);
+              app.controller('formCtrl', function($scope,$http) {
+
+                  $http({
+                      method:'GET',
+                      url:'findAll'
+                  }).then(function success(data) {
+                     $scope.articals=data.data.value;
+
+                  },function error(data) {
+
+                  });
+
+
+              });
+
+
+
+      </script>
+
+
+
+
+  </body>
+</html>
