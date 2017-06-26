@@ -30,6 +30,9 @@ class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
   def regist()=Action{
     Ok(views.html.userRegist("用户注册"))
   }
+  def loginView = Action{
+    Ok(views.html.login())
+  }
 
   /**
     *插入用户
@@ -98,13 +101,36 @@ class UserController @Inject() (val reactiveMongoApi: ReactiveMongoApi) extends 
       val endIndex = pageSize*page
     
       userCollection.flatMap(_.find(Json.obj()).options(QueryOpts(skipN =startIndex ,batchSizeN = pageSize))
-        .cursor[User]().collect[List](pageSize)).map(users=>{
+          .cursor[User]().collect[List](pageSize)).map(users=>{
         //生成JsonList
         Ok(JSONUtil.toJSON(page,pageSize,users))
       })
   }
 
-  def login(name:String,password:String) = Action{
-    Ok("")
+  /**
+    * 判断这个用户是否已经注册
+    *
+    * @param name 用户名
+    * @return
+    */
+  def hasRegisted(name:String)=Action.async{
+    userCollection.flatMap(_.find(Json.obj("name"->name)).cursor[User]().collect[List]()).map( users=>{
+      if (users.isEmpty){
+        Ok(JSONUtil.toSuccessJSON())
+      }else{
+        Ok(JSONUtil.toErrorJSON())
+      }
+    })
+  }
+
+  def login(name:String,password:String) = Action.async{
+    userCollection.flatMap(_.find(Json.obj("name"->name,"password"->password)).cursor[User]().collect[List]()).map(users=>{
+      users match {
+        case user::Nil=>Ok(JSONUtil.toJSON(user))
+        case _=>Ok(JSONUtil.toErrorJSON())
+      }
+
+    })
+
   }
 }

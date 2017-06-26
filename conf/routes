@@ -13,14 +13,18 @@ POST   /user/insert                          controllers.UserController.insert(n
 GET    /user/find/:id                       controllers.UserController.find(id:String)
 GET   /user/findAll/:page/:pageSize         controllers.UserController.findAll(page:Int,pageSize:Int)
 GET     /user/update                        controllers.UserController.update(id:String ?="",email:String ?="")
-DELETE  /user/remove/:id                       controllers.UserController.remove(id:String)
+DELETE  /user/remove/:id                    controllers.UserController.remove(id:String)
 GET     /user/regist                        controllers.UserController.regist()
+GET     /user/login                         controllers.UserController.login(userName :String?="",password :String?="")
+GET     /user/loginView                     controllers.UserController.loginView()
+
 
 
 POST    /artical/insert                     controllers.ArticalController.insert(title:String ?= "",content:String ?= "")
 GET     /artical/show                       controllers.ArticalController.showEditor()
 GET     /artical/findAll                    controllers.ArticalController.findAll(page:Int ?=1 , pageSize:Int ?=10 )
 GET     /artical/showArticals               controllers.ArticalController.showArticals()
+POST    /artical/upload                     controllers.ArticalController.upload()
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)

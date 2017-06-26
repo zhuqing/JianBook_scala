@@ -1,6 +1,8 @@
 package controllers
 
 
+import java.io.File
+import java.nio.file.Paths
 import java.util.UUID
 import javax.inject.{Inject, Singleton}
 
@@ -16,6 +18,7 @@ import reactivemongo.bson.BSONDocument
 import reactivemongo.play.json._
 import reactivemongo.play.json.collection._
 import util.JSONUtil
+
 
 /**
   * Created by zhuleqi on 2017/6/10.
@@ -40,6 +43,8 @@ class ArticalController  @Inject() (val reactiveMongoApi: ReactiveMongoApi) exte
       title,
       content,
       userId,
+      "",
+      "",
       System.currentTimeMillis(),
       System.currentTimeMillis()
     )
@@ -73,5 +78,21 @@ class ArticalController  @Inject() (val reactiveMongoApi: ReactiveMongoApi) exte
           .cursor[Artical]()
           .collect[List](pageSize))
       .map(articals=>Ok(JSONUtil.toJSON(page,pageSize,articals)))
+  }
+
+  def upload()=Action(parse.multipartFormData){ request=>{
+    request.body.file("audio").map( audio=>{
+      val fileName = audio.filename
+      val contentType = audio.contentType
+      val toFile = new File(s"/tmp/$fileName")
+      toFile.createNewFile()
+      audio.ref.moveTo(toFile,true)
+      Ok(JSONUtil.toSuccessJSON())
+    }
+
+    ).getOrElse(
+      Ok(JSONUtil.toErrorJSON())
+    )
+  }
   }
 }

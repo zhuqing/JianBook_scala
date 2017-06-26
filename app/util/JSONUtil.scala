@@ -26,4 +26,8 @@ object JSONUtil {
   def toSuccessJSON(): JsValue ={
     Json.obj("status"->"OK")
   }
+
+  def toErrorJSON():JsValue={
+    Json.obj("status"->"error")
+  }
 }
